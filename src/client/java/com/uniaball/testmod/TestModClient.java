@@ -3,7 +3,7 @@ package com.uniaball.testmod;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.fabric.api.client.rendering.v1.HudRenderCallback;
 import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.util.math.MatrixStack;
+import net.minecraft.client.gui.DrawContext;
 import net.minecraft.util.Formatting;
 
 import java.text.DecimalFormat;
@@ -15,14 +15,14 @@ public class TestModClient implements ClientModInitializer {
 
     @Override
     public void onInitializeClient() {
-        // 注册HUD渲染回调
-        HudRenderCallback.EVENT.register((matrixStack, tickDelta) -> {
+        // 注册HUD渲染回调 - 使用新的DrawContext
+        HudRenderCallback.EVENT.register((drawContext, tickDelta) -> {
             MinecraftClient client = MinecraftClient.getInstance();
             if (client.options.hudHidden) return;
 
             // 计算实时FPS
             updateFPS();
-            renderFPS(matrixStack, client);
+            renderFPS(drawContext, client);
         });
     }
 
@@ -40,7 +40,8 @@ public class TestModClient implements ClientModInitializer {
         }
     }
 
-    private void renderFPS(MatrixStack matrices, MinecraftClient client) {
+    // 修改为使用DrawContext
+    private void renderFPS(DrawContext context, MinecraftClient client) {
         String fpsText = Formatting.GREEN + "FPS: " + FPS_FORMAT.format(currentFPS);
         int screenWidth = client.getWindow().getScaledWidth();
         int screenHeight = client.getWindow().getScaledHeight();
@@ -50,8 +51,9 @@ public class TestModClient implements ClientModInitializer {
         int x = (screenWidth - textWidth) / 2;
         int y = screenHeight / 2 - 4; // 垂直居中
 
-        client.textRenderer.drawWithShadow(
-            matrices,
+        // 使用新的DrawContext方法
+        context.drawTextWithShadow(
+            client.textRenderer,
             fpsText,
             x,
             y,
