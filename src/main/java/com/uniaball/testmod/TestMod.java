@@ -10,6 +10,6 @@ public class TestMod implements ModInitializer {
 
     @Override
     public void onInitialize() {
-        LOGGER.info("A Test Mod initialized!");
+        LOGGER.info("A Test Mod-1.0.0 initialized!");
     }
 }
