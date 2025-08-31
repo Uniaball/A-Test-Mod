@@ -1,0 +1,24 @@
+{
+  "schemaVersion": 1,
+  "id": "testmod",
+  "version": "1.0.0",
+  "name": "A Test Mod",
+  "description": "Displays real-time FPS in the center of the screen",
+  "authors": ["Uniaball"],
+  "contact": {
+    "homepage": "https://fabricmc.net",
+    "sources": "https://github.com/Uniaball/exercise"
+  },
+  "license": "MIT",
+  "environment": "*",
+  "entrypoints": {
+    "main": ["com.uniaball.testmod.TestMod"],
+    "client": ["com.uniaball.testmod.TestModClient"]
+  },
+  "mixins": [],
+  "depends": {
+    "fabricloader": ">=0.15.0",
+    "fabric-api": "*",
+    "minecraft": "1.21.4"
+  }
+}
