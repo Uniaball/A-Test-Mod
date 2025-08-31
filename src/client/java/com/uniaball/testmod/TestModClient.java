@@ -4,11 +4,12 @@ import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.fabric.api.client.rendering.v1.HudRenderCallback;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.DrawContext;
-import net.minecraft.client.util.fps.FpsCounter;
 
 public class TestModClient implements ClientModInitializer {
     private static long lastRefreshTime;
     private static String displayText = "FPS: 0";
+    private static int frameCount = 0;
+    private static long lastFrameTime = 0;
 
     @Override
     public void onInitializeClient() {
@@ -16,28 +17,29 @@ public class TestModClient implements ClientModInitializer {
             MinecraftClient client = MinecraftClient.getInstance();
             if (client.options.hudHidden) return;
 
-            // 更新显示文本
-            updateDisplayText(client);
+            // 计算帧率
+            updateFPS();
             
             // 渲染文本到屏幕顶部中央
             renderFPS(drawContext, client);
         });
     }
 
-    private void updateDisplayText(MinecraftClient client) {
+    private void updateFPS() {
         long currentTime = System.currentTimeMillis();
+        frameCount++;
         
         // 每1000毫秒（1秒）更新一次显示
         if (currentTime - lastRefreshTime >= 1000) {
-            FpsCounter fpsCounter = client.getCurrentFpsCounter();
-            if (fpsCounter != null) {
-                // 直接获取游戏内计算的精确FPS值
-                int fps = fpsCounter.getFps();
-                
-                // 创建纯文本格式（无颜色）
-                displayText = "FPS: " + fps;
-            }
+            // 计算实际FPS
+            int fps = frameCount;
+            
+            // 重置计数器
+            frameCount = 0;
             lastRefreshTime = currentTime;
+            
+            // 更新显示文本
+            displayText = "FPS: " + fps;
         }
     }
 
