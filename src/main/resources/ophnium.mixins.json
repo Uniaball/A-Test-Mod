@@ -1,7 +1,7 @@
 {
   "required": true,
   "package": "com.uniaball.ophnium.mixin",
-  "compatibilityLevel": "JAVA_21",
+  "compatibilityLevel": "JAVA_17",
   "mixins": [
     "ChunkBuilderMixin",
     "EntityMixin",
