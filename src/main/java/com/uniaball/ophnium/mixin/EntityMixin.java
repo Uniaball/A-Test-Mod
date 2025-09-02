@@ -1,6 +1,7 @@
 package com.uniaball.ophnium.mixin;
 
 import net.minecraft.entity.Entity;
+import net.minecraft.util.math.Vec3d;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
@@ -34,8 +35,16 @@ public abstract class EntityMixin {
                 break;
         }
         
+        // 获取玩家位置
+        MinecraftClient client = MinecraftClient.getInstance();
+        if (client.player == null) return;
+        
+        // 计算距离
+        double distanceSq = self.squaredDistanceTo(client.player);
+        double skipDistanceSq = skipDistance * skipDistance;
+        
         // 如果实体在视野外且距离玩家很远，跳过碰撞检测
-        if (!self.isPlayer() && !self.isInRangeToRender3d(self.getX(), self.getY(), self.getZ(), skipDistance)) {
+        if (!self.isPlayer() && distanceSq > skipDistanceSq) {
             ci.cancel();
         }
     }

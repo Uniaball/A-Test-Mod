@@ -1,14 +1,11 @@
 package com.uniaball.ophnium.mixin;
 
-import com.mojang.blaze3d.systems.RenderSystem;
 import net.minecraft.client.MinecraftClient;
+import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.render.Camera;
 import net.minecraft.client.render.GameRenderer;
 import net.minecraft.client.render.WorldRenderer;
 import net.minecraft.client.render.chunk.ChunkBuilder;
-import net.minecraft.client.util.math.MatrixStack;
-import net.minecraft.util.math.ChunkPos;
-import net.minecraft.util.math.Matrix4f;
 import net.minecraft.util.math.Vec3d;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
@@ -70,22 +67,20 @@ public abstract class WorldRendererMixin {
         at = @At("HEAD"),
         cancellable = true
     )
-    private void simplifySkyLight(MatrixStack matrices, Matrix4f projectionMatrix, float tickDelta, Camera camera, boolean thickFog, Runnable fogCallback, CallbackInfo ci) {
+    private void simplifySkyLight(DrawContext context, float tickDelta, Camera camera, boolean thickFog, Runnable fogCallback, CallbackInfo ci) {
         OptimizationLevel level = OptimizationManager.getCurrentLevel();
         
         // 根据优化级别调整天空渲染
         switch (level) {
             case MEDIUM:
                 // 中度优化：简化天空效果
-                RenderSystem.setShader(GameRenderer::getPositionColorProgram);
-                RenderSystem.setShaderColor(0.6F, 0.7F, 1.0F, 1.0F);
+                context.fillGradient(0, 0, context.getScaledWindowWidth(), context.getScaledWindowHeight(), 0xFF6B8CE6, 0xFF87CEEB);
                 ci.cancel();
                 break;
                 
             case HIGH:
                 // 重度优化：仅渲染基本天空颜色
-                RenderSystem.setShader(GameRenderer::getPositionColorProgram);
-                RenderSystem.setShaderColor(0.2F, 0.3F, 0.6F, 1.0F);
+                context.fill(0, 0, context.getScaledWindowWidth(), context.getScaledWindowHeight(), 0xFF2A4F6B);
                 ci.cancel();
                 break;
                 

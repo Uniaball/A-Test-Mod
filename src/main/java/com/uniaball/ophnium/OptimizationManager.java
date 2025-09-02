@@ -12,9 +12,6 @@ public class OptimizationManager {
     // 当前优化级别
     private static volatile OptimizationLevel currentLevel = OptimizationLevel.NONE;
     
-    // 最后检测时间
-    private static volatile long lastCheckTime = 0;
-    
     // 更新优化级别（返回新级别）
     public static OptimizationLevel updateOptimizationLevel(int currentFPS) {
         // 根据帧率确定优化级别
