@@ -38,6 +38,12 @@ dependencies {
 
 	// Fabric API. This is technically optional, but you probably want it anyway.
 	modImplementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_version}"
+
+annotationProcessor "org.ow2.asm:asm:9.6"
+    annotationProcessor "org.ow2.asm:asm-analysis:9.6"
+    annotationProcessor "org.ow2.asm:asm-commons:9.6"
+    annotationProcessor "org.ow2.asm:asm-tree:9.6"
+    annotationProcessor "org.ow2.asm:asm-util:9.6"
 	
 }
 
