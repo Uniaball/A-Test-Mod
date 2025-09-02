@@ -1,24 +1,26 @@
 {
   "schemaVersion": 1,
-  "id": "testmod",
+  "id": "ophnium",
   "version": "1.0.0",
-  "name": "A Test Mod",
-  "description": "Displays real-time FPS in the center of the screen",
+  "name": "Ophnium",
+  "description": "A Performance optimization mod",
   "authors": ["Uniaball"],
   "contact": {
-    "homepage": "https://fabricmc.net",
-    "sources": "https://github.com/Uniaball/exercise"
+    "homepage": "https://github.com/Uniaball/Ophnium",
+    "sources": "https://github.com/Uniaball/Ophnium"
   },
   "license": "MIT",
   "environment": "*",
   "entrypoints": {
-    "main": ["com.uniaball.testmod.TestMod"],
-    "client": ["com.uniaball.testmod.TestModClient"]
+    "main": ["com.uniaball.ophnium.Ophnium"],
+    "client": ["com.uniaball.ophnium.OphniumClient"]
   },
-  "mixins": [],
+  "mixins": [
+    "ophnium.mixins.json"
+  ],
   "depends": {
     "fabricloader": ">=0.15.0",
     "fabric-api": "*",
-    "minecraft": ">=1.21 <1.22"
+    "minecraft": "1.21.4"
   }
 }

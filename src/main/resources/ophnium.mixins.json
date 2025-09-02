@@ -1,0 +1,15 @@
+{
+  "required": true,
+  "package": "com.uniaball.ophnium.mixin",
+  "compatibilityLevel": "JAVA_21",
+  "mixins": [
+    "ChunkBuilderMixin",
+    "EntityMixin",
+    "LightStorageMixin",
+    "ParticleManagerMixin",
+    "WorldRendererMixin"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}

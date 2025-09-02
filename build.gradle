@@ -22,7 +22,7 @@ loom {
 	splitEnvironmentSourceSets()
 
 	mods {
-		"a-test-mod" {
+		"ophnium" {
 			sourceSet sourceSets.main
 			sourceSet sourceSets.client
 		}
